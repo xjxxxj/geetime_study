@@ -29,7 +29,7 @@ class RectCreator {
     onmousemove(event) {
         if(this.started) {
             this.rect.p2 = view.getMousePos(event)
-            invalidate()
+            invalidate(this.rect)
         }
     }
     onmouseup(event) {
@@ -53,7 +53,7 @@ class RectCreator {
 
     reset() {
         this.started = false
-        invalidate()
+        invalidate(this.rect)
     }
 
     stop() {
@@ -65,18 +65,18 @@ class RectCreator {
 
     buildShape() {
         let rect = this.rect;
-        let otherRectProperties = normalizeRect(rect);
+        let r = normalizeRect(rect);
         switch (this.shapTyle) {
             case "line":
                 return new Line(rect.p1, rect.p2, view.lineStyle)
             case "rect":
-                return new Rect(otherRectProperties, view.lineStyle)
+                return new Rect(r, view.lineStyle)
             case "ellipse":
-                let rx = otherRectProperties.width / 2
-                let ry = otherRectProperties.height / 2
-                return new Ellipse(otherRectProperties.x + rx, otherRectProperties.y + ry, rx, ry, view.lineStyle)
+                let rx = r.width / 2
+                let ry = r.height / 2
+                return new Ellipse(r.x + rx, r.y + ry, rx, ry, view.lineStyle)
             case "circle":
-                let rc = Math.sqrt(otherRectProperties.width*otherRectProperties.width + otherRectProperties.height * otherRectProperties.height)
+                let rc = Math.sqrt(r.width*r.width + r.height * r.height)
                 return new Ellipse(rect.p1.x, rect.p1.y, rc, rc, view.lineStyle)
             default:
                 alert("unknown shapeType:" + this.shapTyle)
@@ -91,7 +91,7 @@ function normalizeRect(rect) {
     let x = rect.p1.x
     let y = rect.p1.y
     let width = rect.p2.x - x
-    let height = rect.p2.y = y
+    let height = rect.p2.y - y
     if(width < 0) {
         x = rect.p2.x
         width = -width

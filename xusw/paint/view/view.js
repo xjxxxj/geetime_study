@@ -90,7 +90,7 @@ class PaintView {
         }
     }
     //重置画板
-    invalidateRect() {
+    invalidateRect(reverse) {
         let cxt = this.drawing.getContext("2d")
         let bound = this.drawing.getBoundingClientRect()
         cxt.clearRect(0,0, bound.width, bound.height)
@@ -122,6 +122,6 @@ class PaintView {
 
 var view = new PaintView()
 
-function invalidate() {
-    view.invalidateRect()
+function invalidate(reverse) {
+    view.invalidateRect(reverse)
 }

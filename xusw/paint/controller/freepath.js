@@ -36,7 +36,7 @@ class FreePathCreator {
     onmousemove(event) {//移动鼠标，划线
         if(this.started) {
             this.points.push(view.getMousePos(event))
-            invalidate()
+            invalidate(null)
         }
     }
 
@@ -77,7 +77,7 @@ class FreePathCreator {
     reset() {//重置划线控制器
         this.points = []
         this.started = false
-        invalidate()
+        invalidate(null)
     }
 }
 

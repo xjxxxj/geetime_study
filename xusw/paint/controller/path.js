@@ -35,13 +35,13 @@ class PathCreator {
             this.fromPos = this.toPos
             this.started = true
         }
-        invalidate()
+        invalidate(null)
     }
 
     onmousemove(event) {
         if(this.started) {
             this.toPos = view.getMousePos(event)
-            invalidate()
+            invalidate(null)
         }
     }
 
@@ -87,7 +87,7 @@ class PathCreator {
     reset() {
         this.points = []
         this.started = false
-        invalidate()
+        invalidate(null)
     }
     buildShape() {
         let points = [{x:this.fromPos.x, y:this.fromPos.y}]
