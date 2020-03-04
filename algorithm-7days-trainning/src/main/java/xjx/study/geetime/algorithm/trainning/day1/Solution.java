@@ -8,7 +8,7 @@ public class Solution {
             return;
         }
         int length = nums.length;
-        if(length > 1 && (k = k%length) != 0) {
+        if (length > 1 && (k = k%length) != 0) {
             //把后面k位存起来
             int[] nums2 = new int[k];
             int temp = length - k;
@@ -26,13 +26,13 @@ public class Solution {
         }
     }
     public static void rotate(int[] nums, int k) {
-        if(nums == null || k < 0){
+        if (nums == null || k < 0){
             System.err.println("nums can not be null and k can not less than 0!");
             return;
         }
         int length = nums.length;
         k = k%length;
-        if(length > 1 && (k = k%length) != 0) {
+        if (length > 1 && (k = k%length) != 0) {
             int last;
             for (int i = 0; i < k; i++) {
                 //右移动一位
