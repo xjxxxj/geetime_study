@@ -7,6 +7,7 @@ public class Solution {
             return;
         }
         int length = nums.length;
+        k = k%length;
         if(length > 1 && k != 0) {
             for (int i = 0; i < k; i++) {
                 //右移动一位
@@ -52,19 +53,25 @@ public class Solution {
         }
         System.out.print(nums[length-1] + "]");
     }
-    public static void test1() {
-        int[] nums = new int[]{1,2,3,4,5,6,7};
-        rotate2(nums, 3);
+
+    public static void testRotate(int [] nums1, int [] nums2, int [] nums3) {
+        rotate(nums1, 1);
+        rotate(nums2, 2);
+        rotate(nums3, 3);
     }
 
-    public static void test2() {
-        int[] nums = new int[]{-1,-100,3,99};
-        rotate2(nums, 2);
+    public static void testRotate2(int [] nums1, int [] nums2, int [] nums3) {
+        rotate2(nums1, 1);
+        rotate2(nums2, 2);
+        rotate2(nums3, 3);
     }
 
     public static void main(String[] args) {
-        test1();
-        test2();
+        int[] nums1 = new int[]{1};
+        int[] nums2 = new int[]{1,2,3,4,5,6,7};
+        int[] nums3 = new int[]{-1,-100,3,99};
+        testRotate(nums1, nums2, nums3);
+        //testRotate2(nums1, nums2, nums3);
     }
 
 }
