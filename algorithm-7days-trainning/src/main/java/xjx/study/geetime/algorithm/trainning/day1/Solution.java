@@ -1,37 +1,14 @@
 package xjx.study.geetime.algorithm.trainning.day1;
 public class Solution {
 
-    public static void rotate(int[] nums, int k) {
-        if(nums == null || k < 0){
-            System.err.println("nums can not be null and k can not less than 0!");
-            return;
-        }
-        int length = nums.length;
-        k = k%length;
-        if(length > 1 && k != 0) {
-            for (int i = 0; i < k; i++) {
-                //右移动一位
-                int last = nums[length - 1];
-                for (int j = length-1; j > 0; j--) {
-                    nums[j] = nums[j-1];
-                }
-                nums[0] = last;
-            }
-        }
-        System.out.print("[");
-        for (int i = 0; i < length-1; i++) {
-            System.out.print(nums[i] + ",");
-        }
-        System.out.print(nums[length-1] + "]");
-    }
+
     public static void rotate2(int[] nums, int k) {
         if(nums == null || k < 0){
             System.err.println("nums can not be null and k can not less than 0!");
             return;
         }
         int length = nums.length;
-        k = k%length;
-        if(length > 1 && k != 0) {
+        if(length > 1 && (k = k%length) != 0) {
             //把后面k位存起来
             int[] nums2 = new int[k];
             int temp = length - k;
@@ -47,11 +24,25 @@ public class Solution {
                 nums[i] = nums2[i];
             }
         }
-        System.out.print("[");
-        for (int i = 0; i < length-1; i++) {
-            System.out.print(nums[i] + ",");
+    }
+    public static void rotate(int[] nums, int k) {
+        if(nums == null || k < 0){
+            System.err.println("nums can not be null and k can not less than 0!");
+            return;
         }
-        System.out.print(nums[length-1] + "]");
+        int length = nums.length;
+        k = k%length;
+        if(length > 1 && (k = k%length) != 0) {
+            int last;
+            for (int i = 0; i < k; i++) {
+                //右移动一位
+                last = nums[length - 1];
+                for (int j = length-1; j > 0; j--) {
+                    nums[j] = nums[j-1];
+                }
+                nums[0] = last;
+            }
+        }
     }
 
     public static void testRotate(int [] nums1, int [] nums2, int [] nums3) {
