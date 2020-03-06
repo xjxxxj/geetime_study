@@ -68,7 +68,6 @@ public class MergeTwoSortedLists {
       int val;
       ListNode next;
       ListNode(int x) { val = x; }
-
         @Override
         public String toString() {
             StringBuffer stringBuffer = new StringBuffer("{" + val);
