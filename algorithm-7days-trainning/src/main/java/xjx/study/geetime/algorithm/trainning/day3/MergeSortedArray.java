@@ -3,13 +3,35 @@ package xjx.study.geetime.algorithm.trainning.day3;
 public class MergeSortedArray {
 
     public static void main(String[] args) {
-        int[] num1 = {1, 2, 4, 5, 6, 0};
-        int[] num2 = {3};
-        merge(num1, 5, num2, 1);
+        int[] num1 = {4, 5, 6, 0, 0, 0};
+        int[] num2 = {1, 2, 3};
+        merge2(num1, 3, num2, 3);
         System.out.println(num1);
     }
+    //通过移动实现
+    public static void merge2(int[] nums1, int m, int[] nums2, int n) {
+        int index1 = 0;
+        for(int i = 0; i < n; ) {
+            //nums2剩余全部比nums1大
+            if(index1 == i + m) {
+                for(int j = i; j < n; j ++) {
+                    nums1[index1 ++] = nums2[j];
+                }
+                break;
+            }
+            //后移一位
+            if(nums1[index1] > nums2[i]) {
+                for(int j = m + i; j > index1; j --) {
+                    nums1[j] = nums1[j - 1];
+                }
+                nums1[index1] = nums2[i];
+                i ++;
+            }
+            index1 ++;
+        }
+    }
 
-    //通过循环实现
+    //通过中间数组实现
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         int[] resultNums = new int[m + n];
         int index1 = 0;
