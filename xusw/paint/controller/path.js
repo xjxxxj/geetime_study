@@ -68,7 +68,7 @@ class PathCreator {
 
     onpaint(ctx) {
         if(this.started) {
-            let properties = view.properties;
+            let properties = view.style;
             ctx.lineWidth = properties.lineWidth
             ctx.strokeStyle = properties.lineColor
             ctx.beginPath()
@@ -88,13 +88,14 @@ class PathCreator {
         this.points = []
         this.started = false
         invalidate(null)
+        view.fireControllerReset()
     }
     buildShape() {
         let points = [{x:this.fromPos.x, y:this.fromPos.y}]
         for (let i in this.points) {
             points.push(this.points[i])
         }
-        return new Path(points, this.close, view.lineStyle)
+        return new Path(points, this.close, view.style.clone())
     }
 }
 

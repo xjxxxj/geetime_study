@@ -54,6 +54,7 @@ class RectCreator {
     reset() {
         this.started = false
         invalidate(this.rect)
+        view.fireControllerReset()
     }
 
     stop() {
@@ -68,39 +69,22 @@ class RectCreator {
         let r = normalizeRect(rect);
         switch (this.shapTyle) {
             case "line":
-                return new Line(rect.p1, rect.p2, view.lineStyle)
+                return new Line(rect.p1, rect.p2, view.style.clone())
             case "rect":
-                return new Rect(r, view.lineStyle)
+                return new Rect(r, view.style.clone())
             case "ellipse":
                 let rx = r.width / 2
                 let ry = r.height / 2
-                return new Ellipse(r.x + rx, r.y + ry, rx, ry, view.lineStyle)
+                return new Ellipse(r.x + rx, r.y + ry, rx, ry, view.style.clone())
             case "circle":
                 let rc = Math.sqrt(r.width*r.width + r.height * r.height)
-                return new Ellipse(rect.p1.x, rect.p1.y, rc, rc, view.lineStyle)
+                return new Ellipse(rect.p1.x, rect.p1.y, rc, rc, view.style.clone())
             default:
                 alert("unknown shapeType:" + this.shapTyle)
                 return null
         }
     }
 
-}
-
-//获取圆相关的其他参数
-function normalizeRect(rect) {
-    let x = rect.p1.x
-    let y = rect.p1.y
-    let width = rect.p2.x - x
-    let height = rect.p2.y - y
-    if(width < 0) {
-        x = rect.p2.x
-        width = -width
-    }
-    if(height < 0) {
-        y = rect.p2.y
-        height = -height
-    }
-    return {x:x, y:y, width:width, height:height}
 }
 
 view.registerController("LineCreator", function () {

@@ -2,15 +2,14 @@
 class PaintView {
     constructor() {//定义和初始化页面的属性
         //lineStyle的配置
-        this.properties = {
-            lineWidth: 1,
-            lineColor: "black"
-        }
-        //控制器列表
+        this.style = new ShapeStyle(1, "black", "white")
+        //控制器列表0
         this.controllers = {}
         this._currentKey = ""
         //当前使用的controller
         this._current = null
+        //当前选中的部分
+        this._selection = null
         //当前生效的控制器
         //单击鼠标事件的处理方法
         this.onmousedown = null
@@ -22,7 +21,10 @@ class PaintView {
         this.ondblclick = null
         //键盘按键事件的处理方法
         this.onkeydown = null
-
+        //在 selection 变化时回调
+        this.onSelectionChanged = null
+        //在 Controller 完成或放弃图形的创建时回调
+        this.onControllerReset = null
         //获取画图的canvas对象
         let drawing = document.getElementById("drawing")
         let view = this
@@ -62,15 +64,24 @@ class PaintView {
         this.doc = new PaintDoc()
     }
 
+    get selection() {
+        return this._selection
+    }
+
+    set selection(shape) {
+        let old = this._selection
+        if(old != shape) {
+            this._selection = shape
+            if(this.onSelectionChanged != null) {
+                this.onSelectionChanged(old)
+            }
+        }
+    }
 
     get currentKey() {
         return this._currentKey;
     }
 
-    get lineStyle() {
-        let props = this.properties
-        return new LineStyle(props.lineWidth, props.lineColor)
-    }
     _setCurrent(name, controller) {
         this._current = controller
         this._currentKey = name
@@ -82,6 +93,14 @@ class PaintView {
             this._current.onpaint(cxt)
         }
     }
+
+    //用于让创建图形的Controller完成或者放弃图形创建时发出onControllerReset事件
+    fireControllerReset() {
+        if (this.onControllerReset != null) {
+            this.onControllerReset()
+        }
+    }
+
     //获取鼠标坐标
     getMousePos(event) {
         return {

@@ -58,11 +58,11 @@ class FreePathCreator {
         for(let i in this.points) {
             poins.push(this.points[i])
         }
-        return new Path(poins, this.close, view.lineStyle)
+        return new Path(poins, this.close, view.style.clone())
     }
     onpaint(cxt) {
         if(this.started) {
-            let properties = view.properties;
+            let properties = view.style;
             cxt.lineWidth = properties.lineWidth
             cxt.strokeStyle = properties.lineColor
             cxt.beginPath()
@@ -78,6 +78,7 @@ class FreePathCreator {
         this.points = []
         this.started = false
         invalidate(null)
+        view.fireControllerReset()
     }
 }
 
